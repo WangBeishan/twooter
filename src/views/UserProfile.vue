@@ -1,18 +1,18 @@
 <template>
   <div class="user-profile">
-    <div class="user-profile_user-panel">
-      <h1 class="user-profile_username">@{{ state.user.username }}</h1>
-      <div class="user-profile_admin-badge" v-if="state.user.isAdmin">
-        Admin
+    <div class="user-profile__sidebar">
+      <div class="user-profile__user-panel">
+        <h1 class="user-profile__username">@{{ state.user.username }}</h1>
+        <div class="user-profile__admin-badge" v-if="state.user.isAdmin">
+          Admin
+        </div>
+        <div class="user-profile__follower-count">
+          <strong>Followers: </strong> {{ state.followers }}
+        </div>
       </div>
-      <div class="user-profile_follower-count">
-        <strong>Followers: </strong> {{ state.followers }}
-      </div>
-      <CreateTwootPanel
-          @add-twoot="addTwoot"
-      />
+      <CreateTwootPanel @add-twoot="addTwoot"/>
     </div>
-    <div class="user-profile_twoots-wrapper">
+    <div class="user-profile__twoots-wrapper">
       <TwootItem
           v-for="twoot in state.user.twoots"
           :key="twoot.id"
@@ -24,38 +24,35 @@
 </template>
 
 <script>
+import { reactive, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { users } from "../assets/users";
 import TwootItem from "../components/TwootItem";
 import CreateTwootPanel from "../components/CreateTwootPanel";
-import { reactive, computed } from "vue";
-import { users } from '../assets/users';
-import { useRoute } from 'vue-router'
 
 export default {
   name: "UserProfile",
-  components: {
-    TwootItem,
-    CreateTwootPanel
-  },
+  components: { CreateTwootPanel, TwootItem },
   setup() {
-    const route = useRoute()
+    const route = useRoute();
     const userId = computed(() => route.params.userId)
 
     const state = reactive({
       followers: 0,
       user: users[userId.value - 1] || users[0]
     })
-    function addTwoot(twootContent) {
-      state.user.twoots.unshift({
-        id: state.user.twoots.length + 1,
-        content: twootContent
-      })
+
+    function addTwoot(twoot) {
+      state.user.twoots.unshift({ id: state.user.twoots.length + 1, content: twoot });
     }
+
     return {
       state,
       addTwoot,
+      userId
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -65,7 +62,7 @@ export default {
   grid-gap: 50px;
   padding: 50px 5%;
 
-  .user-profile_user-panel {
+  .user-profile__user-panel {
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -77,22 +74,21 @@ export default {
     h1 {
       margin: 0;
     }
+
+    .user-profile__admin-badge {
+      background: rebeccapurple;
+      color: white;
+      border-radius: 5px;
+      margin-right: auto;
+      padding: 0 10px;
+      font-weight: bold;
+    }
   }
 
-  .user-profile_admin-badge {
-    background: rebeccapurple;
-    color: white;
-    border-radius: 5px;
-    margin-right: auto;
-    padding: 0 10px;
-    font-weight: bold;
+  .user-profile__twoots-wrapper {
+    display: grid;
+    grid-gap: 10px;
+    margin-bottom: auto;
   }
 }
-
-.user-profile_twoots-wrapper {
-  display: grid;
-  grid-gap: 10px;
-  margin-bottom: auto;
-}
-
 </style>

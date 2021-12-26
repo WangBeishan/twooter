@@ -1,10 +1,10 @@
 <template>
   <div class="twoot-item">
-    <div class="user-profile_twoot">
-      <div class="twoot-item_user">
+    <div class="user-profile__twoot">
+      <div class="twoot-item__user">
         @{{ username }}
       </div>
-      <div class="twoot-item_content">
+      <div class="twoot-item__content">
         {{ twoot.content }}
       </div>
     </div>
@@ -23,8 +23,8 @@ export default {
       type: Object,
       required: true
     }
-  },
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -40,9 +40,9 @@ export default {
   &:hover {
     transform: scale(1.1, 1.1);
   }
-  .twoot-item_user {
+
+  .twoot-item__user {
     font-weight: bold;
   }
 }
-
 </style>
