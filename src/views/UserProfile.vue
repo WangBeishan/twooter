@@ -73,10 +73,10 @@ export default {
     border-radius: 5px;
     border: 1px solid #DFE3E8;
     margin-bottom: auto;
-  }
 
-  h1 {
-    margin: 0;
+    h1 {
+      margin: 0;
+    }
   }
 
   .user-profile_admin-badge {
@@ -86,17 +86,6 @@ export default {
     margin-right: auto;
     padding: 0 10px;
     font-weight: bold;
-  }
-  .user-profile_create-twoot {
-    padding-top: 20px;
-    flex-direction: column;
-    display: flex;
-
-    &.exceeded {
-      button {
-        background-color: red;
-      }
-    }
   }
 }
 

@@ -10,6 +10,8 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
+.admin {
+  padding: 50px 5%;
+}
 </style>
